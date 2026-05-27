@@ -20,9 +20,27 @@ export class User {
       } @else {
         <div>No, server stopped ❌</div>
       }
+      <div>
+        <ul>
+          @for (system of operatingSystems; track system.id) {
+            <li class="item">
+              <div>🔑 Id: {{ system.id }}</div>
+              <hr />
+              <div>📎 Name: {{ system.name }}</div>
+            </li>
+          }
+        </ul>
+      </div>
     </div>
     <div class="right">
       <app-user />
+      <ul>
+        @for (user of users; track user.id) {
+          <li class="item user">
+            {{user.name}}
+          </li>
+        }
+      </ul>
     </div>
   `,
   styles: `
@@ -43,6 +61,17 @@ export class User {
     .running {
       color: green;
     }
+    .item {
+      width: 50%;
+      margin-top: 5px;
+      list-style: none;
+      border: 1px solid brown;
+      border-radius: 5px;
+      padding: 5px;
+    }
+    .user {
+      color: cornflowerblue;
+    }
   `,
   imports: [User],
 })
@@ -50,4 +79,16 @@ export class App {
   protected readonly title = signal('my-app');
   city = 'San Francisco';
   isServerRunning = true;
+  operatingSystems = [
+    { id: 'win', name: 'Windows' },
+    { id: 'osx', name: 'macOS' },
+    { id: 'linux', name: 'Linux' },
+  ];
+  users = [
+    { id: 0, name: 'Sarah' },
+    { id: 1, name: 'Amy' },
+    { id: 2, name: 'Rachel' },
+    { id: 3, name: 'Jessica' },
+    { id: 4, name: 'Poornima' },
+  ];
 }
