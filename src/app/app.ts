@@ -23,6 +23,42 @@ export class Person {
   isEditable = true;
 }
 
+@Component({
+  selector: 'app-message',
+  template: `<div>
+    <div>
+      <span>Сообщение -></span>
+      <span>{{ message }}</span>
+    </div>
+    <div>
+      @if (message === '') {
+        <button (click)="changeMsg()">Показать сообщение</button>
+      } @else {
+        <button (click)="deleteMsg()">Удалить сообщение</button>
+      }
+    </div>
+  </div>`,
+  styles: `
+    :host {
+      display: flex;
+      flex-direction: column;
+      border: 2px solid blueviolet;
+      padding: 10px;
+    }
+  `,
+})
+export class Message {
+  message = '';
+  changeMsg = () => {
+    this.message = 'Ура, новое сообщение 💬';
+  };
+  deleteMsg = () => {
+    this.message = '';
+  };
+}
+
+
+
 
 @Component({
   selector: 'app-root',
@@ -56,6 +92,7 @@ export class Person {
         }
       </ul>
       <app-person/>
+      <app-message />
     </div>
   `,
   styles: `
@@ -88,7 +125,7 @@ export class Person {
       color: cornflowerblue;
     }
   `,
-  imports: [User, Person],
+  imports: [User, Person, Message],
 })
 export class App {
   protected readonly title = signal('my-app');
