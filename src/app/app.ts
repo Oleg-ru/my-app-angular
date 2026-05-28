@@ -1,13 +1,4 @@
-import { Component, input, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
-@Component({
-  selector: 'app-user',
-  template: `Username: {{ username }}`,
-})
-export class User {
-  username = 'Rembo';
-}
+import { Component, input, output } from '@angular/core';
 
 @Component({
   selector: 'app-person',
@@ -81,8 +72,46 @@ export class Message {
   };
 }
 
+@Component({
+  selector: 'app-add-user-form',
+  template: `
+    <div class="form-user">
+      <h3>СОздать пользователя:</h3>
+      <button (click)="createNewUser()">Создать</button>
+  </div>`,
+  styles: `
+    .form-user {
+      border: 2px solid black;
+      border-radius: 10px;
+      padding: 10px;
+    }
+  `,
+})
+export class AddUserForm {
+  newUser = output<{id: number; name: string}>()
+  createNewUser = () => {
+    this.newUser.emit({id: 2, name: "Rudik"});
+  }
+}
 
-
+@Component({
+  selector: 'app-user',
+  template: ` <app-add-user-form (newUser)="addUser($event)"/>
+    <div>
+      <ul>
+        @for (user of userList; track user.id) {
+          <li>{{ user.name }}</li>
+        }
+      </ul>
+    </div>`,
+  imports: [AddUserForm],
+})
+export class User {
+  userList = [{ id: Date.now(), name: 'Xuzin' }];
+  addUser = (user: { id: number; name: string }) => {
+    this.userList.push(user);
+  };
+}
 
 @Component({
   selector: 'app-root',
@@ -152,7 +181,6 @@ export class Message {
   imports: [User, Person, Message],
 })
 export class App {
-  protected readonly title = signal('my-app');
   city = 'San Francisco';
   isServerRunning = true;
   operatingSystems = [
