@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, input, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -11,16 +11,40 @@ export class User {
 
 @Component({
   selector: 'app-person',
-  template: ` <button [disabled]="isSubmit" class="btn">Нажми меня</button> <div [contentEditable]="isEditable">Это двчик</div>`,
+  template: `
+    <div>
+      <button [disabled]="isSubmit" class="btn">Нажми меня</button>
+      <div [contentEditable]="isEditable">Это двчик</div>
+    </div>
+    <div>
+      <ul class="persons-container">
+        @for (person of inputPersons(); track person.id) {
+          <li>
+            {{ person.name }}
+          </li>
+        }
+      </ul>
+    </div>`,
   styles: `
     .btn {
       padding: 10px;
     }
-  `
+    .persons-container {
+      border: 1px dotted green;
+      padding: 5px;
+      border-radius: 10px;
+      width: max-content;
+    }
+    li {
+      border-bottom: 1px solid;
+      list-style: none;
+    }
+  `,
 })
 export class Person {
   isSubmit = false;
   isEditable = true;
+  inputPersons = input<Array<{ id: number; name: string }>>();
 }
 
 @Component({
@@ -81,17 +105,17 @@ export class Message {
           }
         </ul>
       </div>
+      <app-person [inputPersons]="users" />
     </div>
     <div class="right">
       <app-user />
       <ul>
         @for (user of users; track user.id) {
           <li class="item user">
-            {{user.name}}
+            {{ user.name }}
           </li>
         }
       </ul>
-      <app-person/>
       <app-message />
     </div>
   `,
