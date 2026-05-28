@@ -9,6 +9,20 @@ export class User {
   username = 'Rembo';
 }
 
+@Component({
+  selector: 'app-person',
+  template: ` <button [disabled]="isSubmit" class="btn">Нажми меня</button> <div [contentEditable]="isEditable">Это двчик</div>`,
+  styles: `
+    .btn {
+      padding: 10px;
+    }
+  `
+})
+export class Person {
+  isSubmit = false;
+  isEditable = true;
+}
+
 
 @Component({
   selector: 'app-root',
@@ -41,6 +55,7 @@ export class User {
           </li>
         }
       </ul>
+      <app-person/>
     </div>
   `,
   styles: `
@@ -73,7 +88,7 @@ export class User {
       color: cornflowerblue;
     }
   `,
-  imports: [User],
+  imports: [User, Person],
 })
 export class App {
   protected readonly title = signal('my-app');
