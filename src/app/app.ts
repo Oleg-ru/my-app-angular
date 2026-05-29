@@ -138,13 +138,20 @@ export class User {
     </div>
     <div class="right">
       <app-user />
-      <ul>
-        @for (user of users; track user.id) {
-          <li class="item user">
-            {{ user.name }}
-          </li>
-        }
-      </ul>
+      @defer (on timer(100)) {
+        <ul>
+          @for (user of users; track user.id) {
+            <li class="item user">
+              {{ user.name }}
+            </li>
+          }
+        </ul>
+      } @placeholder {
+        Пользователи
+      } @loading (minimum 2s) {
+        <div>🔭Загрузка пользователей...</div>
+      }
+
       <app-message />
     </div>
   `,
