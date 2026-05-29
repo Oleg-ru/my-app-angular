@@ -1,4 +1,5 @@
 import { Component, input, output } from '@angular/core';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-person',
@@ -135,6 +136,7 @@ export class User {
         </ul>
       </div>
       <app-person [inputPersons]="users" />
+      <img [ngSrc]="redHeart" alt="logo" width="264" height="191" priority/>
     </div>
     <div class="right">
       <app-user />
@@ -185,7 +187,7 @@ export class User {
       color: cornflowerblue;
     }
   `,
-  imports: [User, Person, Message],
+  imports: [User, Person, Message, NgOptimizedImage],
 })
 export class App {
   city = 'San Francisco';
@@ -202,4 +204,5 @@ export class App {
     { id: 3, name: 'Jessica' },
     { id: 4, name: 'Poornima' },
   ];
+  redHeart = '/red.jpeg';
 }
