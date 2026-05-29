@@ -1,5 +1,6 @@
 import { Component, input, output } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-person',
@@ -117,6 +118,13 @@ export class User {
 @Component({
   selector: 'app-root',
   template: `
+    <div style="border: 1px solid black; padding: 10px">
+      <nav>
+        <a routerLink="/home">Home</a>
+        <a routerLink="/user">User</a>
+      </nav>
+      <router-outlet />
+    </div>
     <div class="left">
       Hello Universe. My city: {{ city }} Any: {{ 1 * 3 + 2 }}
       @if (isServerRunning) {
@@ -136,7 +144,7 @@ export class User {
         </ul>
       </div>
       <app-person [inputPersons]="users" />
-      <img [ngSrc]="redHeart" alt="logo" width="264" height="191" priority/>
+      <img [ngSrc]="redHeart" alt="logo" width="264" height="191" priority />
     </div>
     <div class="right">
       <app-user />
@@ -186,8 +194,14 @@ export class User {
     .user {
       color: cornflowerblue;
     }
+    a {
+      text-decoration: none;
+      border: 1px solid black;
+      padding: 2px;
+      margin-right: 5px;
+    }
   `,
-  imports: [User, Person, Message, NgOptimizedImage],
+  imports: [User, Person, Message, NgOptimizedImage, RouterOutlet, RouterLink],
 })
 export class App {
   city = 'San Francisco';
