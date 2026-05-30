@@ -32,7 +32,7 @@
     <ul>
       @for (user of users; track user.id) {
         <li class="item user">
-          {{ user.name }}
+          {{ user.name | uppercase }}
         </li>
       }
     </ul>

@@ -1,5 +1,5 @@
 import { Component, inject, input, output } from '@angular/core';
-import { NgOptimizedImage } from '@angular/common';
+import { NgOptimizedImage, UpperCasePipe } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AppForm } from './app-form/app-form';
 import { CarService } from './services/car.service';
@@ -121,7 +121,16 @@ export class User {
   selector: 'app-root',
   templateUrl: './app.html',
   styleUrl: './app.scss',
-  imports: [User, Person, Message, NgOptimizedImage, RouterOutlet, RouterLink, AppForm],
+  imports: [
+    User,
+    Person,
+    Message,
+    NgOptimizedImage,
+    RouterOutlet,
+    RouterLink,
+    AppForm,
+    UpperCasePipe,
+  ],
 })
 export class App {
   city = 'San Francisco';
@@ -140,5 +149,5 @@ export class App {
   ];
   redHeart = '/red.jpeg';
   carService = inject(CarService);
-  displayCar = this.carService.getCars().join(" 🚔 ")
+  displayCar = this.carService.getCars().join(' 🚔 ');
 }
