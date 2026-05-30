@@ -1,7 +1,8 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, input, output } from '@angular/core';
 import { NgOptimizedImage } from '@angular/common';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { AppForm } from './app-form/app-form';
+import { CarService } from './services/car.service';
 
 @Component({
   selector: 'app-person',
@@ -138,4 +139,6 @@ export class App {
     { id: 4, name: 'Poornima' },
   ];
   redHeart = '/red.jpeg';
+  carService = inject(CarService);
+  displayCar = this.carService.getCars().join(" 🚔 ")
 }
