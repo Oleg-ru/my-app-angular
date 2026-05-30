@@ -1,1 +1,9 @@
-<p>user works!</p>
+<div>
+  <h2>User</h2>
+  <label for="framework" class="framework_label">
+    Favorite Framework: {{favoriteFramework}}
+    <input id="framework" type="text" [(ngModel)]="favoriteFramework"/>
+  </label>
+  <button (click)="showFramework()" [disabled]="!favoriteFramework">Показать фреймворк</button>
+
+</div>
